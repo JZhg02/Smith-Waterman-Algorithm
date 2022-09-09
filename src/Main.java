@@ -16,7 +16,6 @@ public class Main {
             BufferedReader br = new BufferedReader(fr);
 
             String line;
-
             // While we are not at the end of the file
             while((line = br.readLine()) != null){
                 // If the line is not empty
