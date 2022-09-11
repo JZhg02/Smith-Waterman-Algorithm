@@ -14,12 +14,32 @@ public class Matrix {
         }
         M[0][0] = 'S';
         for(int i=2; i<12; i++){
-            M[i][0] = str1.charAt(i-2);
+            M[0][i] = str1.charAt(i-2);
         }
         for(int i=2; i<12; i++){
-            M[0][i] = str2.charAt(i-2);
+            M[i][0] = str2.charAt(i-2);
         }
 
+    }
+
+    public int max(int x, int y, int z) {
+        int max = Math.max(x, Math.max(y, z));
+        if (max < 0)
+            return(0);
+        return(max);
+    }
+
+    public void procedure() {
+        int score = 0 ;
+        for (int row = 2 ; row < 12 ; row++) {
+            for (int col = 2 ; col < 12 ; col++) {
+                if (M[0][col] == M[row][0])
+                    score = 1 ;
+                else
+                    score = 0 ;
+                M[row][col] = (char) max(Math.max(M[row-1][col-1]+score,0), Math.max(M[row-1][col]-2, -2), Math.max(M[row][col-1]-2, -2));
+            }
+        }
     }
 
     @Override
@@ -43,5 +63,4 @@ public class Matrix {
         }
         return(str.toString());
     }
-
 }

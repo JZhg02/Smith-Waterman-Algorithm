@@ -25,7 +25,7 @@ public class Main {
                     if(arrow.equals(">")){
                         arrowCounter++;
                         if(arrowCounter == lineNumber){
-                            System.out.println(br.readLine());
+                            System.out.println(br.readLine()); // prochaine ligne
                         }
                     }
                 }
@@ -36,7 +36,11 @@ public class Main {
             System.out.println("File does not exist.");
         }
 
+
+
         Matrix M = new Matrix("GTCGATTTGA", "ACGAAAGAGG");
+        System.out.println(M);
+        M.procedure();
         System.out.println(M);
     }
 }
