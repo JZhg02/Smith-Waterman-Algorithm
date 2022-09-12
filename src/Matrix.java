@@ -1,6 +1,3 @@
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-
 public class Matrix {
 
     Character[][] M = new Character[12][12];
