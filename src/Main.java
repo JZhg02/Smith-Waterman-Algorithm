@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String []args){
 
-        int arrowCounter = 0;
+        int arrowCounter = 0; // to count the number of >
         try{
             String line;
             // File
@@ -15,14 +15,14 @@ public class Main {
             FileReader fr = new FileReader(file);
             // Create a buffered reader
             BufferedReader br = new BufferedReader(fr);
-            while((line = br.readLine()) != null) {
+            while((line = br.readLine()) != null) { // will always read the next line
                 // If the line is not empty
                 if (!line.isEmpty()) {
                     // arrow = first character of the line
                     String arrow = line.charAt(0) + "";
                     if (arrow.equals(">")) {
                         arrowCounter++;
-                        System.out.println(arrowCounter+". "+br.readLine());
+                        System.out.println(arrowCounter+". "+br.readLine()); // print the next line
                     }
                 }
             }
@@ -96,8 +96,13 @@ public class Main {
             System.out.println("File does not exist.");
         }
 
-        Matrix M = new Matrix(line1, line2);
-        M.procedure();
-        System.out.println(M);
+        try {
+            Matrix M = new Matrix(line1, line2); // creation of a matrix with the sequences/strings asked
+            M.procedure();
+            System.out.println(M);
+        }
+        catch (NullPointerException npe){
+            System.out.println("Lines are null.");
+        }
     }
 }
