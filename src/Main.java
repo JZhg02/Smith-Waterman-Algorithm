@@ -100,6 +100,7 @@ public class Main {
             Matrix M = new Matrix(line1, line2); // creation of a matrix with the sequences/strings asked
             M.procedure();
             System.out.println(M);
+            System.out.println(M.traceback());
         }
         catch (NullPointerException npe){
             System.out.println("Lines are null.");

@@ -1,3 +1,7 @@
+import jdk.swing.interop.SwingInterOpUtils;
+
+import java.util.Arrays;
+
 public class Matrix {
 
     Character[][] M = new Character[12][12];
@@ -42,6 +46,105 @@ public class Matrix {
             }
         }
     }
+
+    public int rowMax(){
+        int max = Integer.parseInt(String.valueOf(M[2][2]));
+        int theRow = 11;
+        for(int row=2; row<12; row++){
+            for(int col=2; col<12; col++){
+                if(M[row][col] == ':'){
+                    max = 10;
+                    theRow = 11;
+                }
+                else if(max <= Integer.parseInt(String.valueOf(M[row][col]))){
+                    max = Integer.parseInt(String.valueOf(M[row][col]));
+                    theRow = row;
+                }
+            }
+        }
+        return(theRow);
+    }
+    public int colMax(){
+        int max = Integer.parseInt(String.valueOf(M[2][2]));
+        int theCol = 11;
+        for(int row=2; row<12; row++){
+            for(int col=2; col<12; col++){
+                if(M[row][col] == ':'){
+                    max = 10;
+                    theCol = 11;
+                }
+                else if(max <= Integer.parseInt(String.valueOf(M[row][col]))){
+                    max = Integer.parseInt(String.valueOf(M[row][col]));
+                    theCol = col;
+                }
+            }
+        }
+        return(theCol);
+    }
+
+    public String traceback() {
+        StringBuilder traceBack = new StringBuilder("This is one of the possible tracebacks: ");
+        int i = rowMax();
+        int j = colMax();
+        String valueUp;
+        String valueDiag;
+        String valueLeft;
+        int max;
+        traceBack.append(M[i][j]).append(" ");
+        while(i>2 && j>2){
+            valueUp = String.valueOf(M[i][j-1]);
+            valueDiag = String.valueOf(M[i-1][j-1]);
+            valueLeft = String.valueOf(M[i-1][j]);
+            max = max(Integer.parseInt(valueUp), Integer.parseInt(valueDiag), Integer.parseInt(valueLeft));
+            if(max == Integer.parseInt(valueDiag)){
+                traceBack.append(valueDiag).append(" ");
+                i--;
+                j--;
+            }
+            else if(max == Integer.parseInt(valueUp)){
+                traceBack.append(valueUp).append(" ");
+                j--;
+            }
+            else{
+                traceBack.append(valueLeft).append(" ");
+                i--;
+            }
+        }
+        return(traceBack.toString());
+    }
+
+    /*
+    // TO MODIFY
+    public String ATCG_Traceback() {
+        StringBuilder traceBack = new StringBuilder("");
+        int i = rowMax();
+        int j = colMax();
+        String valueUp;
+        String valueDiag;
+        String valueLeft;
+        int max;
+        traceBack.append(M[i][j]).append(" ");
+        while(i>2 && j>2){
+            valueUp = String.valueOf(M[i][j-1]);
+            valueDiag = String.valueOf(M[i-1][j-1]);
+            valueLeft = String.valueOf(M[i-1][j]);
+            max = max(Integer.parseInt(valueUp), Integer.parseInt(valueDiag), Integer.parseInt(valueLeft));
+            if(max == Integer.parseInt(valueDiag)){
+                traceBack.append(valueDiag).append(" ");
+                i--;
+                j--;
+            }
+            else if(max == Integer.parseInt(valueUp)){
+                traceBack.append(valueUp).append(" ");
+                j--;
+            }
+            else{
+                traceBack.append(valueLeft).append(" ");
+                i--;
+            }
+        }
+        return(traceBack.toString());
+    }*/
 
     @Override
     public String toString(){
