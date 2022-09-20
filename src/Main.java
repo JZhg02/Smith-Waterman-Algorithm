@@ -105,7 +105,7 @@ public class Main {
             M.procedure();
             System.out.println(M);
             tracebacks = M.ATCG_Traceback();
-            System.out.println(tracebacks);
+            System.out.println("Traceback(s): "+tracebacks);
         }
         catch (NullPointerException npe){
             System.out.println("Lines are null.");

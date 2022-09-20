@@ -53,7 +53,7 @@ public class Matrix {
     // TRACEBACK PART
     // Return traceback
     public String traceback(int row, int col) {
-        StringBuilder traceBack = new StringBuilder();
+        StringBuilder traceBack = new StringBuilder(" ");
         int i = row;
         int j = col;
         String valueUp;
@@ -102,7 +102,7 @@ public class Matrix {
     public ArrayList<String> ATCG_Traceback() {
         ArrayList<String> tracebacksArray = new ArrayList<>();
         int matrixMax = highestValue();
-        System.out.println("This is highest value: "+matrixMax);
+        System.out.println("This is highest score: "+matrixMax);
         for(int row=2; row<12; row++){
             for(int col=2; col<12; col++){
                 if(matrixMax == 10){
