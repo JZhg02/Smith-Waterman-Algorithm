@@ -1,6 +1,7 @@
 import jdk.swing.interop.SwingInterOpUtils;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -96,11 +97,15 @@ public class Main {
             System.out.println("File does not exist.");
         }
 
+        // Traceback Array
+        ArrayList<String> tracebacks = new ArrayList<>();
+
         try {
             Matrix M = new Matrix(line1, line2); // creation of a matrix with the sequences/strings asked
             M.procedure();
             System.out.println(M);
-            System.out.println(M.traceback());
+            tracebacks = M.ATCG_Traceback();
+            System.out.println(tracebacks);
         }
         catch (NullPointerException npe){
             System.out.println("Lines are null.");

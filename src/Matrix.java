@@ -1,5 +1,6 @@
 import jdk.swing.interop.SwingInterOpUtils;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Matrix {
@@ -26,6 +27,7 @@ public class Matrix {
 
     }
 
+    // Search for max of 3 given values
     public int max(int x, int y, int z) {
         int max = Math.max(x, Math.max(y, z));
         if (max < 0)
@@ -33,6 +35,7 @@ public class Matrix {
         return(max);
     }
 
+    // Algorithm that fill the table with the equations
     public void procedure() {
         int score = 0 ;
         for (int row = 2 ; row < 12 ; row++) {
@@ -47,51 +50,19 @@ public class Matrix {
         }
     }
 
-    public int rowMax(){
-        int max = Integer.parseInt(String.valueOf(M[2][2]));
-        int theRow = 11;
-        for(int row=2; row<12; row++){
-            for(int col=2; col<12; col++){
-                if(M[row][col] == ':'){
-                    max = 10;
-                    theRow = 11;
-                }
-                else if(max <= Integer.parseInt(String.valueOf(M[row][col]))){
-                    max = Integer.parseInt(String.valueOf(M[row][col]));
-                    theRow = row;
-                }
-            }
-        }
-        return(theRow);
-    }
-    public int colMax(){
-        int max = Integer.parseInt(String.valueOf(M[2][2]));
-        int theCol = 11;
-        for(int row=2; row<12; row++){
-            for(int col=2; col<12; col++){
-                if(M[row][col] == ':'){
-                    max = 10;
-                    theCol = 11;
-                }
-                else if(max <= Integer.parseInt(String.valueOf(M[row][col]))){
-                    max = Integer.parseInt(String.valueOf(M[row][col]));
-                    theCol = col;
-                }
-            }
-        }
-        return(theCol);
-    }
-
-    public String traceback() {
-        StringBuilder traceBack = new StringBuilder("This is one of the possible tracebacks: ");
-        int i = rowMax();
-        int j = colMax();
+    // TRACEBACK PART
+    // Return traceback
+    public String traceback(int row, int col) {
+        StringBuilder traceBack = new StringBuilder();
+        int i = row;
+        int j = col;
         String valueUp;
         String valueDiag;
         String valueLeft;
         int max;
         traceBack.append(M[i][j]).append(" ");
-        while(i>2 && j>2){
+        // Loop until we reach a 0
+        while(i>1 && j>1 || M[i][j] != '0'){
             valueUp = String.valueOf(M[i][j-1]);
             valueDiag = String.valueOf(M[i-1][j-1]);
             valueLeft = String.valueOf(M[i-1][j]);
@@ -112,39 +83,39 @@ public class Matrix {
         }
         return(traceBack.toString());
     }
-
-    /*
-    // TO MODIFY
-    public String ATCG_Traceback() {
-        StringBuilder traceBack = new StringBuilder("");
-        int i = rowMax();
-        int j = colMax();
-        String valueUp;
-        String valueDiag;
-        String valueLeft;
-        int max;
-        traceBack.append(M[i][j]).append(" ");
-        while(i>2 && j>2){
-            valueUp = String.valueOf(M[i][j-1]);
-            valueDiag = String.valueOf(M[i-1][j-1]);
-            valueLeft = String.valueOf(M[i-1][j]);
-            max = max(Integer.parseInt(valueUp), Integer.parseInt(valueDiag), Integer.parseInt(valueLeft));
-            if(max == Integer.parseInt(valueDiag)){
-                traceBack.append(valueDiag).append(" ");
-                i--;
-                j--;
-            }
-            else if(max == Integer.parseInt(valueUp)){
-                traceBack.append(valueUp).append(" ");
-                j--;
-            }
-            else{
-                traceBack.append(valueLeft).append(" ");
-                i--;
+    // Get the highest value
+    public int highestValue(){
+        int max = 0;
+        for(int i=2; i<12; i++){
+            for(int j=2; j<12; j++){
+                if(this.M[i][j] == ':'){
+                    return(10);
+                }
+                else if(max < Integer.parseInt(String.valueOf(this.M[i][j]))){
+                    max = Integer.parseInt(String.valueOf(this.M[i][j]));
+                }
             }
         }
-        return(traceBack.toString());
-    }*/
+        return(max);
+    }
+    // Return ArrayList of the tracebacks
+    public ArrayList<String> ATCG_Traceback() {
+        ArrayList<String> tracebacksArray = new ArrayList<>();
+        int matrixMax = highestValue();
+        System.out.println("This is highest value: "+matrixMax);
+        for(int row=2; row<12; row++){
+            for(int col=2; col<12; col++){
+                if(matrixMax == 10){
+                    tracebacksArray.add(traceback(11, 11));
+                    return(tracebacksArray);
+                }
+                else if(matrixMax == Integer.parseInt(String.valueOf(M[row][col]))){
+                    tracebacksArray.add(traceback(row, col));
+                }
+            }
+        }
+        return(tracebacksArray);
+    }
 
     @Override
     public String toString(){
